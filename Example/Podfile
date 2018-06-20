@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NJDYPlayer_Example' do
+  pod 'NJDYPlayer', :path => '../'
+
+  target 'NJDYPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
