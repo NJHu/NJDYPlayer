@@ -55,6 +55,5 @@ s.resources     = 'NJDYPlayer/**/*.{xcassets}'
 
 s.dependency 'NJKit'
 s.frameworks   = 'UIKit'
-s.dependency 'NJIJKPlayer'
 
 end

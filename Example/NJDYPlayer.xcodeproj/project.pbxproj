@@ -13,8 +13,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		804D6FC375E528FE3678B716 /* Pods_NJDYPlayer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5328C8D777B91D5B971FF121 /* Pods_NJDYPlayer_Tests.framework */; };
-		B72208460F70B84DDE237FEA /* Pods_NJDYPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CEA44A464067ED892CD83F /* Pods_NJDYPlayer_Example.framework */; };
+		60D0C9CBA265961BD5EB2AD1 /* Pods_NJDYPlayer_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5589647DCC6C59FF725E86E5 /* Pods_NJDYPlayer_Tests.framework */; };
+		C16D7BAE369531EC4DB33E56 /* Pods_NJDYPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7836179E050DAF51ACFC2F0D /* Pods_NJDYPlayer_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,8 +30,8 @@
 /* Begin PBXFileReference section */
 		36A0E12A3C33CCC3A1A42022 /* Pods-NJDYPlayer_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NJDYPlayer_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NJDYPlayer_Tests/Pods-NJDYPlayer_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4CA80DEF859E25A2C2B198B3 /* Pods-NJDYPlayer_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NJDYPlayer_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NJDYPlayer_Tests/Pods-NJDYPlayer_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5328C8D777B91D5B971FF121 /* Pods_NJDYPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NJDYPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C167AD0A9459A54AA59DEDD /* NJDYPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NJDYPlayer.podspec; path = ../NJDYPlayer.podspec; sourceTree = "<group>"; };
+		5589647DCC6C59FF725E86E5 /* Pods_NJDYPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NJDYPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C167AD0A9459A54AA59DEDD /* NJDYPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NJDYPlayer.podspec; path = ../NJDYPlayer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* NJDYPlayer_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NJDYPlayer_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,10 +43,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		61AEF09F2CA9A1A915A13D4C /* Pods-NJDYPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NJDYPlayer_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
+		7836179E050DAF51ACFC2F0D /* Pods_NJDYPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NJDYPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D274AC1061E6A425A7452F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7AA496A73505701ADE86F504 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B972FB4722D92B7BF89EEC0C /* Pods-NJDYPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NJDYPlayer_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		F1CEA44A464067ED892CD83F /* Pods_NJDYPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NJDYPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B72208460F70B84DDE237FEA /* Pods_NJDYPlayer_Example.framework in Frameworks */,
+				C16D7BAE369531EC4DB33E56 /* Pods_NJDYPlayer_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				804D6FC375E528FE3678B716 /* Pods_NJDYPlayer_Tests.framework in Frameworks */,
+				60D0C9CBA265961BD5EB2AD1 /* Pods_NJDYPlayer_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +142,8 @@
 		79C3921E3D33BD7D9E453CA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F1CEA44A464067ED892CD83F /* Pods_NJDYPlayer_Example.framework */,
-				5328C8D777B91D5B971FF121 /* Pods_NJDYPlayer_Tests.framework */,
+				7836179E050DAF51ACFC2F0D /* Pods_NJDYPlayer_Example.framework */,
+				5589647DCC6C59FF725E86E5 /* Pods_NJDYPlayer_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -170,8 +170,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				09FD0A064E2DCD4BCD62472A /* [CP] Embed Pods Frameworks */,
-				E3FD92BF3A140E18D3CE1B5A /* [CP] Copy Pods Resources */,
+				6BD7588770C20E0E9F2AA071 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,32 +261,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09FD0A064E2DCD4BCD62472A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
-				"${BUILT_PRODUCTS_DIR}/NJKit/NJKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NJKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3C9A39684FF80602C4B2F4B4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,22 +279,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E3FD92BF3A140E18D3CE1B5A /* [CP] Copy Pods Resources */ = {
+		6BD7588770C20E0E9F2AA071 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/NJDYPlayer/NJDYPlayer.bundle",
+				"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/NJDYPlayer/NJDYPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/NJKit/NJKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NJDYPlayer.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NJDYPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NJKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NJDYPlayer_Example/Pods-NJDYPlayer_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F484F5793F52F50887AE8FBB /* [CP] Check Pods Manifest.lock */ = {

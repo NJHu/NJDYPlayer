@@ -8,12 +8,11 @@ target 'NJDYPlayer_Example' do
 
 	inhibit_all_warnings!
 	
-  pod 'NJDYPlayer', :path => '../'
-  pod 'NJIJKPlayer', :path => '../../NJIJKPlayer/'
+    pod 'NJDYPlayer', :path => '../'
+    pod 'NJIJKPlayer', :git => 'https://github.com/NJHu/NJIJKPlayer.git', :branch => 'master'
 
   target 'NJDYPlayer_Tests' do
     inherit! :search_paths
 
-    
   end
 end
