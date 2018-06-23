@@ -8,6 +8,7 @@ target 'NJDYPlayer_Example' do
 
 	inhibit_all_warnings!
 	
+#    , :modular_headers => true
     pod 'NJDYPlayer', :path => '../'
     #pod 'NJIJKPlayer', :git => 'https://github.com/NJHu/NJIJKPlayer.git', :branch => 'master'
     #pod 'NJIJKPlayer', :path => '../../NJIJKPlayer'

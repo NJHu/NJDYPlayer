@@ -26,15 +26,24 @@ class ViewController: UIViewController {
             player.prepareToPlay()
         }
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         player.view.frame = vcPlayContainerView.bounds
     }
 
     @IBAction func playVideo(_ sender: Any) {
-        
+        if !player.isPlaying() {
+            player.play()
+        }
     }
     @IBAction func pauseVideo(_ sender: Any) {
+        if player.isPlaying() {
+            player.pause()
+        }
     }
     
     @IBAction func nextPage(_ sender: UIButton) {
