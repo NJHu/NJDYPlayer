@@ -9,8 +9,10 @@ import UIKit
 
 protocol NJPlayerControlViewDelegate {
     
+    
 }
 
 class NJPlayerControlView: UIView {
 
+    
 }

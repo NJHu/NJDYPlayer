@@ -16,3 +16,9 @@ protocol NJPlayerMediaPlayback {
 open class NJAVPlayerManager : NSObject {
     private let IJKFFPlayer: IJKFFMoviePlayerController = IJKFFMoviePlayerController()
 }
+
+
+public class NJPresentView: NJPlayerView {
+    
+    
+}

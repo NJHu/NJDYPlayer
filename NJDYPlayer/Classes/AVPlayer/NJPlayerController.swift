@@ -6,20 +6,22 @@
 //
 
 import UIKit
+import IJKMediaFramework
 
 // 属性
 open class NJPlayerController: NSObject {
     public lazy var containerView: UIView = {
         return UIView()
     }()
-    private lazy var playerManager: NJAVPlayerManager = {
-        return NJAVPlayerManager()
+//    private var IJKFFPlayer: IJKFFMoviePlayerController
+    
+    private lazy var controlView: NJPlayerControlView = {
+        return NJPlayerControlView()
     }()
 }
 
 extension NJPlayerController {
-    
-    
+
 }
 
 extension NJPlayerController {
