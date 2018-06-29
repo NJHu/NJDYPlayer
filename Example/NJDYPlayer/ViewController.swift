@@ -8,23 +8,20 @@
 
 import UIKit
 import IJKMediaFramework
+import NJDYPlayer
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var vcPlayContainerView: UIView!
     
     public var videoUrl = "http://tb-video.bdstatic.com/videocp/12045395_f9f87b84aaf4ff1fee62742f2d39687f.mp4"
-    lazy var player: IJKFFMoviePlayerController = IJKFFMoviePlayerController(contentURLString: videoUrl, with: IJKFFOptions.byDefault())
+    lazy var player : NJPlayerController = NJPlayerController(containerView: vcPlayContainerView)
     override func viewDidLoad() {
         super.viewDidLoad()
-        vcPlayContainerView.addSubview(player.view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !player.isPlaying() {
-            player.prepareToPlay()
-        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -32,18 +29,14 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        player.view.frame = vcPlayContainerView.bounds
+        
     }
 
     @IBAction func playVideo(_ sender: Any) {
-        if !player.isPlaying() {
-            player.play()
-        }
+
     }
     @IBAction func pauseVideo(_ sender: Any) {
-        if player.isPlaying() {
-            player.pause()
-        }
+
     }
     
     @IBAction func nextPage(_ sender: UIButton) {

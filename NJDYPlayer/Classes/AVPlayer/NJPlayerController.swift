@@ -13,11 +13,14 @@ open class NJPlayerController: NSObject {
     public lazy var containerView: UIView = {
         return UIView()
     }()
-//    private var IJKFFPlayer: IJKFFMoviePlayerController
     
     private lazy var controlView: NJPlayerControlView = {
         return NJPlayerControlView()
     }()
+    
+    public init(containerView: UIView?) {
+        super.init()
+    }
 }
 
 extension NJPlayerController {
