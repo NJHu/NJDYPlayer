@@ -14,5 +14,5 @@ protocol NJPlayerControlViewDelegate {
 
 class NJPlayerControlView: UIView {
 
-    
+    private lazy var landscapeView: UIView = NJLandControlView()
 }
