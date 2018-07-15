@@ -87,13 +87,15 @@ extension NJPlayerController {
         guard IJKFFPlayer != nil else {
             return NJPlayerControllerError.playerFailNil
         }
-        // 添加到父控件
-        layoutViews()
         // 添加通知
         installMovieNotificationObservers()
         
-        // 必须立马调用， 不然会有bug
+        // 添加到父控件
+        layoutViews()
+        
+        // 必须调用， 不然会有bug
         IJKFFPlayer?.prepareToPlay()
+        
         return nil
     }
     
@@ -132,8 +134,7 @@ extension NJPlayerController {
         IJKFFPlayer = IJKFFMoviePlayerController(contentURLString: self.contentURLString, with: IJKFFOptions.byDefault())
         
         IJKFFPlayer?.scalingMode = .aspectFit
-        //如果是直播，最好不让他自动播放，如果YES，那么就会自动播放电影，不需要通过[IJKFFPlayer play];就可以播放了，
-        //但是如果NO，我们需要注册通知，然后到响应比较合适的地方去检测通知，然后必须通过[IJKFFPlayer play];手动播放
+
         IJKFFPlayer?.shouldAutoplay = true
     }
 }
@@ -198,7 +199,6 @@ extension NJPlayerController {
         default:
             print(reason)
         }
-        
     }
     
     
