@@ -53,7 +53,7 @@ open class NJPlayerController: NSObject {
             }
         }
     }
-
+    
     public convenience init(containerView: UIView, delegate: NJPlayerControllerDelegate) {
         self.init()
         IJKFFMoviePlayerController.setLogReport(true)
@@ -87,25 +87,34 @@ extension NJPlayerController {
         guard IJKFFPlayer != nil else {
             return NJPlayerControllerError.playerFailNil
         }
-        // 添加通知
-        installMovieNotificationObservers()
         
         // 添加到父控件
         layoutViews()
         
-        // 必须调用， 不然会有bug
-        IJKFFPlayer?.prepareToPlay()
+        // 添加通知
+        installMovieNotificationObservers()
+        
+        self.IJKFFPlayer?.prepareToPlay()
         
         return nil
     }
-    
 }
 
 extension NJPlayerController {
     // 播放
     public func play() {
-        if IJKFFPlayer != nil && !IJKFFPlayer!.isPlaying() {
-            IJKFFPlayer?.play()
+        if IJKFFPlayer != nil && !(IJKFFPlayer!.isPlaying()) {
+            if IJKFFPlayer!.isPreparedToPlay {
+                IJKFFPlayer?.play()
+            }else {
+                self.IJKFFPlayer?.prepareToPlay()
+            }
+        }
+    }
+    
+    public var isPlaying: Bool {
+        get {
+            return IJKFFPlayer?.isPlaying() ?? false
         }
     }
     
@@ -134,7 +143,7 @@ extension NJPlayerController {
         IJKFFPlayer = IJKFFMoviePlayerController(contentURLString: self.contentURLString, with: IJKFFOptions.byDefault())
         
         IJKFFPlayer?.scalingMode = .aspectFit
-
+        
         IJKFFPlayer?.shouldAutoplay = true
     }
 }
