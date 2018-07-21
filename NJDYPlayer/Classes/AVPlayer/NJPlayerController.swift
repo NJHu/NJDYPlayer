@@ -11,12 +11,15 @@ import IJKMediaFramework
 @objc public protocol NJPlayerControllerDelegate: NJPlayerControllerPlaybackFinishDelegate, NJPlayerControllerLoadStateDelegate, NJPlayerControllerPlaybackStateStateDelegate {
 }
 
+/// 播放完成
 @objc public protocol NJPlayerControllerPlaybackFinishDelegate: NSObjectProtocol {
     @objc optional func playerController(playbackFinish playerController: NJPlayerController, playbackEnded contentURLString: String)
     @objc optional func  playerController(playbackFinish playerController: NJPlayerController, playbackError contentURLString: String)
     @objc optional func  playerController(playbackFinish playerController: NJPlayerController, userExited contentURLString: String)
 }
 
+
+/// 加载状态
 @objc public protocol NJPlayerControllerLoadStateDelegate: NSObjectProtocol {
     @objc optional func  playerController(loadState playerController: NJPlayerController, unKnown contentURLString: String)
     @objc optional func  playerController(loadState playerController: NJPlayerController, playable contentURLString: String)
@@ -24,6 +27,7 @@ import IJKMediaFramework
     @objc optional func  playerController(loadState playerController: NJPlayerController, stalled contentURLString: String)
 }
 
+/// 播放器状态
 @objc public protocol NJPlayerControllerPlaybackStateStateDelegate: NSObjectProtocol {
     @objc optional func  playerController(playbackState playerController: NJPlayerController, stopped contentURLString: String)
     @objc optional func  playerController(playbackState playerController: NJPlayerController, playing contentURLString: String)

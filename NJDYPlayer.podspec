@@ -49,10 +49,8 @@ s.source_files = 'NJDYPlayer/Classes/**/*'
 #二级目录
 
 s.resource_bundles = {
-'NJDYPlayer' => ['NJDYPlayer/Assets/**/*.{plist,webp,png}']
+'NJDYPlayer' => ['NJDYPlayer/Assets/**/*.{plist,webp,png,xcassets}']
 }
-
-s.resources     = 'NJDYPlayer/**/*.{xcassets}'
 
 #s.dependency 'NJKit'
 s.frameworks   = 'UIKit'
