@@ -9,14 +9,14 @@ import UIKit
 
 extension String {
     
-    public func urlEncoding() -> String? {
+    func urlEncoding() -> String? {
         let characters = "`#%^{}\"[]|\\<> "
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.init(charactersIn: characters).inverted)
     }
 }
 
 extension Bundle {
-    public static func njPL_curBundle(class bundleOfClass: AnyClass?, bundleFile: String? = nil) -> Bundle {
+    static func njPL_curBundle(class bundleOfClass: AnyClass?, bundleFile: String? = nil) -> Bundle {
         
         var bundle = bundleOfClass == nil ? Bundle.main : Bundle(for: bundleOfClass!)
         
@@ -31,7 +31,7 @@ extension Bundle {
 }
 
 extension UIImage {
-    public static func njPL_image(name: String, bundleClass: AnyClass?, bundleFile: String? = nil) -> UIImage? {
+    static func njPL_image(name: String, bundleClass: AnyClass?, bundleFile: String? = nil) -> UIImage? {
         var image: UIImage?
         
         let bundle = bundleClass == nil ? Bundle.main : Bundle(for: bundleClass!)
@@ -54,9 +54,5 @@ extension UIImage {
 }
 
 extension UIApplication {
-    // 横竖屏
-    var nj_interfaceOrientation_isPortrait: Bool {
-        return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait
-    }
     
 }

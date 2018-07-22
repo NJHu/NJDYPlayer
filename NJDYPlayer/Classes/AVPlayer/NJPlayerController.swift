@@ -8,11 +8,11 @@
 import UIKit
 import IJKMediaFramework
 
-@objc public protocol NJPlayerControllerDelegate: NJPlayerControllerPlaybackFinishDelegate, NJPlayerControllerLoadStateDelegate, NJPlayerControllerPlaybackStateStateDelegate {
+@objc protocol NJPlayerControllerDelegate: NJPlayerControllerPlaybackFinishDelegate, NJPlayerControllerLoadStateDelegate, NJPlayerControllerPlaybackStateStateDelegate {
 }
 
 /// 播放完成
-@objc public protocol NJPlayerControllerPlaybackFinishDelegate: NSObjectProtocol {
+@objc protocol NJPlayerControllerPlaybackFinishDelegate: NSObjectProtocol {
     @objc optional func playerController(playbackFinish playerController: NJPlayerController, playbackEnded contentURLString: String)
     @objc optional func  playerController(playbackFinish playerController: NJPlayerController, playbackError contentURLString: String)
     @objc optional func  playerController(playbackFinish playerController: NJPlayerController, userExited contentURLString: String)
@@ -20,7 +20,7 @@ import IJKMediaFramework
 
 
 /// 加载状态
-@objc public protocol NJPlayerControllerLoadStateDelegate: NSObjectProtocol {
+@objc protocol NJPlayerControllerLoadStateDelegate: NSObjectProtocol {
     @objc optional func  playerController(loadState playerController: NJPlayerController, unKnown contentURLString: String)
     @objc optional func  playerController(loadState playerController: NJPlayerController, playable contentURLString: String)
     @objc optional func  playerController(loadState playerController: NJPlayerController, playthroughOK contentURLString: String)
@@ -28,7 +28,7 @@ import IJKMediaFramework
 }
 
 /// 播放器状态
-@objc public protocol NJPlayerControllerPlaybackStateStateDelegate: NSObjectProtocol {
+@objc protocol NJPlayerControllerPlaybackStateStateDelegate: NSObjectProtocol {
     @objc optional func  playerController(playbackState playerController: NJPlayerController, stopped contentURLString: String)
     @objc optional func  playerController(playbackState playerController: NJPlayerController, playing contentURLString: String)
     @objc optional func  playerController(playbackState playerController: NJPlayerController, paused contentURLString: String)
@@ -47,23 +47,16 @@ open class NJPlayerController: NSObject {
     
     private var IJKFFPlayer: IJKFFMoviePlayerController?
     private var contentURLString: String?
-    open weak var delegate: NJPlayerControllerDelegate!
+    private weak var delegate: NJPlayerControllerDelegate!
     
-    public var containerView: UIView! {
-        didSet {
-            if IJKFFPlayer != nil {
-                containerView.insertSubview(IJKFFPlayer!.view, at: 0)
-                IJKFFPlayer!.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
-            }
-        }
-    }
-    
-    public convenience init(containerView: UIView, delegate: NJPlayerControllerDelegate) {
+    convenience init(delegate: NJPlayerControllerDelegate?) {
         self.init()
         IJKFFMoviePlayerController.setLogReport(true)
         IJKFFMoviePlayerController.setLogLevel(k_IJK_LOG_DEBUG)
         self.delegate = delegate
-        self.containerView = containerView
+    }
+    private override init() {
+        super.init()
     }
     
     deinit {
@@ -74,7 +67,7 @@ open class NJPlayerController: NSObject {
 // MARK:- 准备播放
 extension NJPlayerController {
     
-    public func prepareToPlay(contentURLString: String) -> Error? {
+    func prepareToPlay(contentURLString: String) -> Error? {
         guard let playUrlString = contentURLString.urlEncoding(), playUrlString.lengthOfBytes(using: .utf8) > 0  else {
             return NJPlayerControllerError.urlNil
         }
@@ -92,21 +85,27 @@ extension NJPlayerController {
             return NJPlayerControllerError.playerFailNil
         }
         
-        // 添加到父控件
         layoutViews()
         
         // 添加通知
         installMovieNotificationObservers()
         
-        self.IJKFFPlayer?.prepareToPlay()
+        DispatchQueue.main.async {
+            self.IJKFFPlayer?.prepareToPlay()
+        }
         
         return nil
     }
 }
 
 extension NJPlayerController {
+    
+    var playerView: UIView? {
+        return IJKFFPlayer?.view
+    }
+    
     // 播放
-    public func play() {
+    func play() {
         if IJKFFPlayer != nil && !(IJKFFPlayer!.isPlaying()) {
             if IJKFFPlayer!.isPreparedToPlay {
                 IJKFFPlayer?.play()
@@ -116,21 +115,19 @@ extension NJPlayerController {
         }
     }
     
-    public var isPlaying: Bool {
-        get {
-            return IJKFFPlayer?.isPlaying() ?? false
-        }
+    var isPlaying: Bool {
+        return IJKFFPlayer?.isPlaying() ?? false
     }
     
     //暂停
-    public func pause() {
+    func pause() {
         if IJKFFPlayer != nil {
             IJKFFPlayer?.pause()
         }
     }
     
     // 关闭播放
-    public func shutdown() {
+    func shutdown() {
         // 移除上一个播放器的通知
         if IJKFFPlayer != nil {
             removeMovieNotificationObservers()
@@ -156,8 +153,6 @@ extension NJPlayerController {
 extension NJPlayerController {
     private func layoutViews() {
         IJKFFPlayer?.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.insertSubview(IJKFFPlayer!.view, at: 0)
-        IJKFFPlayer?.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
     }
 }
 
