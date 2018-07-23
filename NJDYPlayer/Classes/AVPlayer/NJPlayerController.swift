@@ -68,7 +68,7 @@ open class NJPlayerController: NSObject {
 extension NJPlayerController {
     
     func prepareToPlay(contentURLString: String) -> Error? {
-        guard let playUrlString = contentURLString.urlEncoding(), playUrlString.lengthOfBytes(using: .utf8) > 0  else {
+        guard contentURLString.lengthOfBytes(using: .utf8) > 0  else {
             return NJPlayerControllerError.urlNil
         }
         
@@ -77,7 +77,7 @@ extension NJPlayerController {
             shutdown()
         }
         
-        self.contentURLString = playUrlString
+        self.contentURLString = contentURLString
         
         initPlayer()
         
@@ -133,7 +133,8 @@ extension NJPlayerController {
             removeMovieNotificationObservers()
             IJKFFPlayer?.shutdown()
             IJKFFPlayer!.view.removeFromSuperview()
-            IJKFFPlayer = nil;
+            IJKFFPlayer = nil
+            contentURLString = nil
         }
     }
 }
