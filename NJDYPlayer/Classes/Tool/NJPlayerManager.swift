@@ -39,10 +39,10 @@ extension NJPlayerManager {
         guard error == nil && containerView != nil else {
             return error
         }
-        if !layoutViews(containerView: containerView) {
+        self.containerView = containerView
+        if !layoutViews() {
             return NJPlayerManagerError.nilPlayer
         }
-        self.containerView = containerView
         return nil
     }
 }
@@ -78,42 +78,55 @@ public extension NJPlayerManager {
 
 // MARK:- layoutViews
 extension NJPlayerManager {
-    private func layoutViews(containerView: UIView?, deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation) -> Bool {
+    private func layoutViews(containerView: UIView? = nil, deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation) -> Bool {
         guard playerController.playerView != nil else {
             return false
         }
-        guard  containerView != nil else {
+        guard  self.containerView != nil else {
+            playerController.shutdown()
             presentView.removeFromSuperview()
             return false
         }
-        containerView?.addSubview(presentView)
+        if containerView == nil && (deviceOrientation == UIDeviceOrientation.landscapeLeft || deviceOrientation == UIDeviceOrientation.landscapeRight) {
+            UIApplication.shared.keyWindow?.addSubview(presentView)
+        }else if containerView != nil {
+            containerView?.addSubview(presentView)
+        }else {
+            self.containerView?.addSubview(presentView)
+        }
+        
         presentView.insertSubview(playerController.playerView!, at: 0)
         let anchorX = (presentView.superview!.frame.width * 0.5 / presentView.superview!.frame.height)
         let anchorY: CGFloat = 0.5
         presentView.layer.anchorPoint = CGPoint(x: anchorX, y: anchorY)
         
+        let superW: CGFloat = self.presentView.superview!.frame.width
+        let superH: CGFloat = self.presentView.superview!.frame.height
+        
         switch deviceOrientation {
         case .landscapeLeft:
+            self.presentView.transform = CGAffineTransform.identity
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.landscapeRight
             UIView.animate(withDuration: 0.4) {
-                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.height, height: self.presentView.superview!.frame.width)
-                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
+                self.presentView.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
                 self.presentView.transform = CGAffineTransform.init(rotationAngle: CGFloat(M_PI_2))
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
             }
         case .landscapeRight:
-            let rotationTransform  = CGAffineTransform.init(rotationAngle: -CGFloat(M_PI_2))
+            self.presentView.transform = CGAffineTransform.identity
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.landscapeLeft
+            let rotationTransform  = CGAffineTransform.init(rotationAngle: -CGFloat(M_PI_2))
             UIView.animate(withDuration: 0.4) {
-                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.height, height: self.presentView.superview!.frame.width)
-                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
-                self.presentView.transform = rotationTransform.translatedBy(x: -(self.presentView.superview!.frame.height - self.presentView.superview!.frame.width), y: 0)
+                self.presentView.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
+                self.presentView.transform = rotationTransform.translatedBy(x: -(superH - superW), y: 0)
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
             }
         default:
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.portrait
             UIView.animate(withDuration: 0.4) {
                 self.presentView.transform = CGAffineTransform.identity
-                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.width, height: self.presentView.superview!.frame.height)
-                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
+                self.presentView.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
             }
         }
         
@@ -124,13 +137,7 @@ extension NJPlayerManager {
 // MARK:- UIDeviceOrientationDidChange
 extension NJPlayerManager {
     @objc private func handleDeviceOrientationChange() {
-        let orientation = UIDevice.current.orientation
-        switch orientation {
-        case .landscapeLeft, .landscapeRight:
-            layoutViews(containerView: UIApplication.shared.keyWindow)
-        default:
-            layoutViews(containerView: self.containerView)
-        }
+        layoutViews()
     }
 }
 
