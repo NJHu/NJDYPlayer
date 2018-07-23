@@ -20,7 +20,7 @@ public class NJPlayerManager: NSObject {
         let presentView = NJPresentView()
         presentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         presentView.presentViewDelegate = self
-        presentView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+        presentView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         return presentView
         }()
     private weak var  containerView: UIView?
@@ -71,6 +71,7 @@ public extension NJPlayerManager {
     
     // 关闭播放
     func shutdown() {
+        layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait)
         playerController.shutdown()
     }
 }
@@ -78,22 +79,42 @@ public extension NJPlayerManager {
 // MARK:- layoutViews
 extension NJPlayerManager {
     private func layoutViews(containerView: UIView?, deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation) -> Bool {
-        guard playerController.playerView != nil && containerView != nil else {
+        guard playerController.playerView != nil else {
+            return false
+        }
+        guard  containerView != nil else {
             presentView.removeFromSuperview()
             return false
         }
         containerView?.addSubview(presentView)
         presentView.insertSubview(playerController.playerView!, at: 0)
-        
-        UIApplication.shared.statusBarOrientation = UIInterfaceOrientation(rawValue: deviceOrientation.rawValue)!
+        let anchorX = (presentView.superview!.frame.width * 0.5 / presentView.superview!.frame.height)
+        let anchorY: CGFloat = 0.5
+        presentView.layer.anchorPoint = CGPoint(x: anchorX, y: anchorY)
         
         switch deviceOrientation {
-        case .landscapeLeft, .landscapeRight:
-            print(deviceOrientation)
-        case .portrait:
-           print(deviceOrientation)
+        case .landscapeLeft:
+            UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.landscapeRight
+            UIView.animate(withDuration: 0.4) {
+                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.height, height: self.presentView.superview!.frame.width)
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
+                self.presentView.transform = CGAffineTransform.init(rotationAngle: CGFloat(M_PI_2))
+            }
+        case .landscapeRight:
+            let rotationTransform  = CGAffineTransform.init(rotationAngle: -CGFloat(M_PI_2))
+            UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.landscapeLeft
+            UIView.animate(withDuration: 0.4) {
+                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.height, height: self.presentView.superview!.frame.width)
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
+                self.presentView.transform = rotationTransform.translatedBy(x: -(self.presentView.superview!.frame.height - self.presentView.superview!.frame.width), y: 0)
+            }
         default:
-            print(deviceOrientation)
+            UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.portrait
+            UIView.animate(withDuration: 0.4) {
+                self.presentView.transform = CGAffineTransform.identity
+                self.presentView.frame = CGRect(x: 0, y: 0, width: self.presentView.superview!.frame.width, height: self.presentView.superview!.frame.height)
+                self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: self.presentView.frame.width, height: self.presentView.frame.height)
+            }
         }
         
         return true
@@ -104,40 +125,11 @@ extension NJPlayerManager {
 extension NJPlayerManager {
     @objc private func handleDeviceOrientationChange() {
         let orientation = UIDevice.current.orientation
-//        UIDeviceOrientation;
-        /*
-         case unknown
-         
-         case portrait // Device oriented vertically, home button on the bottom
-         
-         case portraitUpsideDown // Device oriented vertically, home button on the top
-         
-         case landscapeLeft // Device oriented horizontally, home button on the right
-         
-         case landscapeRight // Device oriented horizontally, home button on the left
-         
-         case faceUp // Device oriented flat, face up
-         
-         case faceDown // Device oriented flat, face down
-         */
-//        UIInterfaceOrientation;
-        /*
-         case unknown
-         
-         case portrait
-         
-         case portraitUpsideDown
-         
-         case landscapeLeft
-         
-         case landscapeRight*/
         switch orientation {
         case .landscapeLeft, .landscapeRight:
             layoutViews(containerView: UIApplication.shared.keyWindow)
-        case .portrait:
-            layoutViews(containerView: self.containerView)
         default:
-            print(orientation)
+            layoutViews(containerView: self.containerView)
         }
     }
 }
