@@ -121,13 +121,16 @@ extension NJPlayerManager {
                 self.presentView.transform = rotationTransform.translatedBy(x: -(superH - superW), y: 0)
                 self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
             }
-        default:
+        case .portrait:
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.portrait
             UIView.animate(withDuration: 0.4) {
                 self.presentView.transform = CGAffineTransform.identity
                 self.presentView.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
                 self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
             }
+            
+        default:
+            print(deviceOrientation)
         }
         
         return true
