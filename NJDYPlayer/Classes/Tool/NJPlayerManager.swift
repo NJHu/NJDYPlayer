@@ -73,6 +73,7 @@ public extension NJPlayerManager {
     func shutdown() {
         layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait)
         playerController.shutdown()
+        self.containerView = nil;
     }
 }
 
@@ -87,13 +88,50 @@ extension NJPlayerManager {
             presentView.removeFromSuperview()
             return false
         }
-        if containerView == nil && (deviceOrientation == UIDeviceOrientation.landscapeLeft || deviceOrientation == UIDeviceOrientation.landscapeRight) {
-            UIApplication.shared.keyWindow?.addSubview(presentView)
-        }else if containerView != nil {
-            containerView?.addSubview(presentView)
-        }else {
+        
+        var cur_deviceOrientation = deviceOrientation
+        
+        
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft || cur_deviceOrientation == UIDeviceOrientation.landscapeRight {
+            
+            if containerView == nil {
+                UIApplication.shared.keyWindow?.addSubview(presentView)
+            }else {
+                containerView?.addSubview(presentView)
+            }
+            
+        }else if cur_deviceOrientation == UIDeviceOrientation.portrait {
+            
+            if containerView == nil {
+                self.containerView?.addSubview(presentView)
+            }else {
+                containerView?.addSubview(presentView)
+            }
+            
+        }else if cur_deviceOrientation == UIDeviceOrientation.faceUp || cur_deviceOrientation == UIDeviceOrientation.faceDown {
+            
+            if presentView.superview != nil {
+                return true
+            }
+            
+            cur_deviceOrientation = UIDeviceOrientation.portrait
             self.containerView?.addSubview(presentView)
+            
+        }else {
+            
+            cur_deviceOrientation = UIDeviceOrientation.portrait
+            self.containerView?.addSubview(presentView)
+            
         }
+        
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight {
+            return true
+        }
+        
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeRight && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft {
+            return true
+        }
+        
         
         presentView.insertSubview(playerController.playerView!, at: 0)
         let anchorX = (presentView.superview!.frame.width * 0.5 / presentView.superview!.frame.height)
@@ -103,7 +141,7 @@ extension NJPlayerManager {
         let superW: CGFloat = self.presentView.superview!.frame.width
         let superH: CGFloat = self.presentView.superview!.frame.height
         
-        switch deviceOrientation {
+        switch cur_deviceOrientation {
         case .landscapeLeft:
             self.presentView.transform = CGAffineTransform.identity
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.landscapeRight
@@ -130,7 +168,7 @@ extension NJPlayerManager {
             }
             
         default:
-            print(deviceOrientation)
+            print(deviceOrientation.rawValue)
         }
         
         return true
