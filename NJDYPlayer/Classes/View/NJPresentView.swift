@@ -42,6 +42,6 @@ extension NJPresentView {
         controlView.frame = self.bounds
     }
     private func setupUIOnce() {
-        self.backgroundColor = UIColor.black
+//        self.backgroundColor = UIColor.black
     }
 }

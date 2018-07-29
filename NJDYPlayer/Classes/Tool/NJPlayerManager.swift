@@ -24,6 +24,7 @@ public class NJPlayerManager: NSObject {
         return presentView
         }()
     private weak var  containerView: UIView?
+    private var shouldAutorotate: Bool = true
     private override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -34,15 +35,17 @@ public class NJPlayerManager: NSObject {
 
 // MARK:- CALL
 extension NJPlayerManager {
-    public func prepareToPlay(contentURLString: String, in containerView: UIView) -> Error? {
+    public func prepareToPlay(contentURLString: String, in containerView: UIView, shouldAutorotate: Bool = true) -> Error? {
         let error = self.playerController.prepareToPlay(contentURLString:contentURLString)
         guard error == nil && containerView != nil else {
             return error
         }
         self.containerView = containerView
+        self.shouldAutorotate = shouldAutorotate
         if !layoutViews() {
             return NJPlayerManagerError.nilPlayer
         }
+        
         return nil
     }
 }
@@ -74,6 +77,7 @@ public extension NJPlayerManager {
         layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait)
         playerController.shutdown()
         self.containerView = nil;
+        self.shouldAutorotate = true
     }
 }
 
@@ -91,6 +95,9 @@ extension NJPlayerManager {
         
         var cur_deviceOrientation = deviceOrientation
         
+        if !self.shouldAutorotate {
+            cur_deviceOrientation = UIDeviceOrientation.portrait
+        }
         
         if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft || cur_deviceOrientation == UIDeviceOrientation.landscapeRight {
             
