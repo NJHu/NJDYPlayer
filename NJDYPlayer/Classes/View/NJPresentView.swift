@@ -15,6 +15,7 @@ class NJPresentView: UIView {
     
     public lazy var controlView: NJControlView = {[weak self] in
         let controlView = NJControlView()
+        self?.addSubview(controlView)
         return controlView
         }()
     
@@ -42,6 +43,6 @@ extension NJPresentView {
         controlView.frame = self.bounds
     }
     private func setupUIOnce() {
-//        self.backgroundColor = UIColor.black
+        self.backgroundColor = UIColor.black
     }
 }
