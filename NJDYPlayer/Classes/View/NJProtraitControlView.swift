@@ -8,8 +8,7 @@
 import UIKit
 
 protocol NJProtraitControlViewDelegate {
-    func protraitControlView(play protraitControlView: NJProtraitControlView) -> Void
-    func protraitControlView(pause protraitControlView: NJProtraitControlView) -> Void
+    func protraitControlView(gobackLayout protraitControlView: NJProtraitControlView) -> Void
 }
 
 class NJProtraitControlView: UIView {
@@ -19,16 +18,6 @@ class NJProtraitControlView: UIView {
         controlTopView.delegate = self
         self?.addSubview(controlTopView)
         return controlTopView
-        }()
-    
-    // MARK:- common ui
-    private lazy var playBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPause_44x44_", bundleClass: NJProtraitControlView.self), for: .selected)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPlay_44x44_", bundleClass: NJProtraitControlView.self), for: .normal)
-        btn.addTarget(self, action: #selector(playClick(btn:)), for: .touchUpInside)
-        self?.addSubview(btn)
-        return btn;
         }()
     
     // MARK:- delegate
@@ -50,9 +39,7 @@ class NJProtraitControlView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        controlTopView.bounds = CGRect(x: 0, y: 0, width: self.bounds.width, height: 40)
-        playBtn.bounds = CGRect(x: 0, y: 0, width: 44, height: 44)
-        playBtn.center = self.center
+        controlTopView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 40)
     }
 }
 
@@ -66,33 +53,22 @@ extension NJProtraitControlView {
 // MARK:- control
 extension NJProtraitControlView {
     func show() -> Void {
-        
+        self.isHidden = false
     }
     func hide() -> Void {
-        
+        self.isHidden = true
     }
 }
 
 
 // MARK:- NJControlTopViewDelegate
 extension NJProtraitControlView: NJControlTopViewDelegate {
-    func controlTopView(goProtrait controlTopView: NJControlTopView) -> Void {
-        
+    func controlTopView(backClick controlTopView: NJControlTopView) {
+        protraitControlViewDelegate?.protraitControlView(gobackLayout: self)
     }
-    func controlTopViewIsProtrait(controlTopView: NJControlTopView) -> Bool {
-        return true
+    func controlTopViewIsShowBackBtn(controlTopView: NJControlTopView) -> Bool {
+        return false
     }
 }
 
-// MARK:- action
-extension NJProtraitControlView {
-    @objc private func playClick(btn: UIButton) {
-        btn.isSelected = !btn.isSelected
-        if btn.isSelected {
-            protraitControlViewDelegate?.protraitControlView(play: self)
-        }else {
-            protraitControlViewDelegate?.protraitControlView(pause: self)
-        }
-    }
-}
 

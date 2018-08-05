@@ -19,7 +19,6 @@ public class NJPlayerManager: NSObject {
     private lazy var presentView: NJPresentView = {[weak self] in
         let presentView = NJPresentView()
         presentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        presentView.presentViewDelegate = self
         presentView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         return presentView
         }()
@@ -156,6 +155,7 @@ extension NJPlayerManager {
                 self.presentView.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
                 self.presentView.transform = CGAffineTransform.init(rotationAngle: CGFloat(M_PI_2))
                 self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
+                self.presentView.controlView.showLandScape()
             }
         case .landscapeRight:
             self.presentView.transform = CGAffineTransform.identity
@@ -165,6 +165,7 @@ extension NJPlayerManager {
                 self.presentView.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
                 self.presentView.transform = rotationTransform.translatedBy(x: -(superH - superW), y: 0)
                 self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superH, height: superW)
+                self.presentView.controlView.showLandScape()
             }
         case .portrait:
             UIApplication.shared.statusBarOrientation = UIInterfaceOrientation.portrait
@@ -172,6 +173,7 @@ extension NJPlayerManager {
                 self.presentView.transform = CGAffineTransform.identity
                 self.presentView.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
                 self.playerController.playerView?.frame = CGRect(x: 0, y: 0, width: superW, height: superH)
+                self.presentView.controlView.showProtrait()
             }
             
         default:
@@ -193,6 +195,3 @@ extension NJPlayerManager: NJPlayerControllerDelegate {
     
 }
 
-extension NJPlayerManager: NJPresentViewDelegate {
-    
-}

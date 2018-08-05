@@ -19,7 +19,7 @@ public class NJVideoPlayerManager: NSObject {
     private lazy var presentView: NJPresentView = {[weak self] in
         let presentView = NJPresentView()
         presentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        presentView.presentViewDelegate = self
+
         presentView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         return presentView
         }()
@@ -193,6 +193,3 @@ extension NJVideoPlayerManager: NJPlayerControllerDelegate {
     
 }
 
-extension NJVideoPlayerManager: NJPresentViewDelegate {
-    
-}

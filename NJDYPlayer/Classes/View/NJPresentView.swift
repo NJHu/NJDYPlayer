@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol NJPresentViewDelegate {
-
-}
-
 class NJPresentView: UIView {
     
     public lazy var controlView: NJControlView = {[weak self] in
@@ -18,8 +14,6 @@ class NJPresentView: UIView {
         self?.addSubview(controlView)
         return controlView
         }()
-    
-    var presentViewDelegate: NJPresentViewDelegate?
     
     private override init(frame: CGRect) {
         super.init(frame: frame)

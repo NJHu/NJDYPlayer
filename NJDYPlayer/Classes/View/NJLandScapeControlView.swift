@@ -8,8 +8,7 @@
 import UIKit
 
 protocol NJLandScapeControlViewDelegate {
-    func landScapeControlView(play landScapeControlView: NJLandScapeControlView) -> Void
-    func landScapeControlView(pause landScapeControlView: NJLandScapeControlView) -> Void
+    func landScapeControlView(gobackLayout landScapeControlView: NJLandScapeControlView) -> Void
 }
 
 class NJLandScapeControlView: UIView {
@@ -19,16 +18,6 @@ class NJLandScapeControlView: UIView {
         controlTopView.delegate = self
         self?.addSubview(controlTopView)
         return controlTopView
-        }()
-    
-    // MARK:- common ui
-    private lazy var playBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPause_44x44_", bundleClass: NJProtraitControlView.self), for: .selected)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPlay_44x44_", bundleClass: NJProtraitControlView.self), for: .normal)
-        btn.addTarget(self, action: #selector(playClick(btn:)), for: .touchUpInside)
-        self?.addSubview(btn)
-        return btn;
         }()
     
     // MARK:- delegate
@@ -50,9 +39,7 @@ class NJLandScapeControlView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        controlTopView.bounds = CGRect(x: 0, y: 0, width: self.bounds.width, height: 80)
-        playBtn.bounds = CGRect(x: 0, y: 0, width: 44, height: 44)
-        playBtn.center = self.center
+        controlTopView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: 80)
     }
 }
 
@@ -66,32 +53,20 @@ extension NJLandScapeControlView {
 // MARK:- control
 extension NJLandScapeControlView {
     func show() -> Void {
-        
+        self.isHidden = false
     }
     func hide() -> Void {
-        
+        self.isHidden = true
     }
 }
 
 // MARK:- NJControlTopViewDelegate
 extension NJLandScapeControlView: NJControlTopViewDelegate {
-    func controlTopView(goProtrait controlTopView: NJControlTopView) -> Void {
-        
+    func controlTopView(backClick controlTopView: NJControlTopView) {
+        landScapeControlViewDelegate?.landScapeControlView(gobackLayout: self)
     }
-    func controlTopViewIsProtrait(controlTopView: NJControlTopView) -> Bool {
-        return false
-    }
-}
-
-// MARK:- action
-extension NJLandScapeControlView {
-    @objc private func playClick(btn: UIButton) {
-        btn.isSelected = !btn.isSelected
-        if btn.isSelected {
-            landScapeControlViewDelegate?.landScapeControlView(play: self)
-        }else {
-            landScapeControlViewDelegate?.landScapeControlView(pause: self)
-        }
+    func controlTopViewIsShowBackBtn(controlTopView: NJControlTopView) -> Bool {
+        return true
     }
 }
 
