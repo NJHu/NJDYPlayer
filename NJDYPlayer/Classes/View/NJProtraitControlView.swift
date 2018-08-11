@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NJProtraitControlViewDelegate {
+protocol NJProtraitControlViewDelegate: NSObjectProtocol {
     func protraitControlView(gobackLayout protraitControlView: NJProtraitControlView) -> Void
 }
 
@@ -21,7 +21,14 @@ class NJProtraitControlView: UIView {
         }()
     
     // MARK:- delegate
-    public var protraitControlViewDelegate: NJProtraitControlViewDelegate?
+   weak public var protraitControlViewDelegate: NJProtraitControlViewDelegate?
+    
+    var title: String? {
+        willSet {
+            let aTitle = newValue ?? ""
+            controlTopView.title = aTitle
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

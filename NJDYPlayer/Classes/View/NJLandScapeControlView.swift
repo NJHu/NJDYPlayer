@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NJLandScapeControlViewDelegate {
+protocol NJLandScapeControlViewDelegate: NSObjectProtocol {
     func landScapeControlView(gobackLayout landScapeControlView: NJLandScapeControlView) -> Void
 }
 
@@ -21,7 +21,14 @@ class NJLandScapeControlView: UIView {
         }()
     
     // MARK:- delegate
-    public var landScapeControlViewDelegate: NJLandScapeControlViewDelegate?
+    weak public var landScapeControlViewDelegate: NJLandScapeControlViewDelegate?
+    
+    var title: String? {
+        willSet {
+            let aTitle = newValue ?? ""
+            controlTopView.title = aTitle
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

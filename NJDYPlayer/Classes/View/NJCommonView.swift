@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NJControlTopViewDelegate {
+protocol NJControlTopViewDelegate: NSObjectProtocol {
     func controlTopView(backClick controlTopView: NJControlTopView) -> Void
     func controlTopViewIsShowBackBtn(controlTopView: NJControlTopView) -> Bool
 }
@@ -36,7 +36,7 @@ class NJControlTopView: UIView {
         }
     }
     
-    var delegate: NJControlTopViewDelegate?
+    weak var delegate: NJControlTopViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,7 +55,7 @@ class NJControlTopView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         bgImageView.frame = self.bounds
-        backBtn.frame = CGRect(x: 20, y: 0, width: 44, height: self.bounds.size.height)
+        backBtn.frame = CGRect(x: 0, y: (self.frame.height - 44) * 0.5, width: 44, height: 44)
         backBtn.isHidden = !(delegate?.controlTopViewIsShowBackBtn(controlTopView: self) ?? true)
         titleLabel.sizeToFit()
         titleLabel.frame = CGRect(x: 10 +  (backBtn.isHidden ? 0 : backBtn.frame.maxX), y: (self.bounds.height - titleLabel.bounds.height) * 0.5, width: titleLabel.bounds.width, height: titleLabel.bounds.height)
