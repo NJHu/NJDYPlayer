@@ -12,6 +12,7 @@ import UIKit
     @objc optional func controlView(playClick controlView: NJControlView)
     @objc optional func controlView(pauseClick controlView: NJControlView)
     @objc optional func controlView(gobackLayout controlView: NJControlView)
+    @objc optional func controlView(fullScreen controlView: NJControlView)
 }
 
 
@@ -31,16 +32,6 @@ class NJControlView: UIView {
         return landScapeControlView;
         }()
     
-    // MARK:- common ui
-    private lazy var playBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPause_44x44_", bundleClass: NJControlView.self), for: .selected)
-        btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPlay_44x44_", bundleClass: NJControlView.self), for: .normal)
-        btn.addTarget(self, action: #selector(playOrPause(btn:)), for: .touchUpInside)
-        self?.addSubview(btn)
-        return btn;
-        }()
-    
     private lazy var loadingActivity: UIActivityIndicatorView = {
        let loadingActivity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         loadingActivity.hidesWhenStopped = true
@@ -50,7 +41,8 @@ class NJControlView: UIView {
     
     var playing: Bool = true {
         didSet {
-            playBtn.isSelected = playing
+            protraitControlView.playing = playing
+            landScapeControlView.playing = playing
         }
     }
     
@@ -97,46 +89,40 @@ extension NJControlView {
         super.layoutSubviews()
         landScapeControlView.frame = self.bounds
         protraitControlView.frame = self.bounds
-        playBtn.bounds = CGRect(x: 0, y: 0, width: 44, height: 44)
-        playBtn.center = CGPoint(x: self.bounds.width * 0.5, y: self.bounds.height * 0.5)
         loadingActivity.center = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
-        insertSubview(loadingActivity, aboveSubview: playBtn)
     }
 }
 
 // MARK:- action
 extension NJControlView: NJLandScapeControlViewDelegate, NJProtraitControlViewDelegate {
-    @objc func playOrPause(btn: UIButton) {
-        btn.isSelected = !btn.isSelected
-        if btn.isSelected {
-            delegate?.controlView?(playClick: self)
-        }else {
-            delegate?.controlView?(pauseClick: self)
-        }
+    func protraitControlView(play protraitControlView: NJProtraitControlView) -> Void {
+        delegate?.controlView?(playClick: self)
     }
-    func landScapeControlView(gobackLayout landScapeControlView: NJLandScapeControlView) -> Void {
-        delegate?.controlView?(gobackLayout: self)
+    func protraitControlView(pause protraitControlView: NJProtraitControlView) -> Void {
+        delegate?.controlView?(pauseClick: self)
     }
     func protraitControlView(gobackLayout protraitControlView: NJProtraitControlView) -> Void {
         delegate?.controlView?(gobackLayout: self)
     }
+    func protraitControlView(fullScreen protraitControlView: NJProtraitControlView) {
+        delegate?.controlView?(fullScreen: self)
+    }
+    
+    func landScapeControlView(gobackLayout landScapeControlView: NJLandScapeControlView) -> Void {
+        delegate?.controlView?(gobackLayout: self)
+    }
+
 }
 
 // MARK:- action
 extension NJControlView {
     func showProtrait() -> Void {
-        protraitControlView.show()
-        landScapeControlView.hide()
+        protraitControlView.isHidden = false
+        landScapeControlView.isHidden = true
     }
     func showLandScape() -> Void {
-        protraitControlView.hide()
-        landScapeControlView.show()
-    }
-    func showCenterPlayBtn() {
-        playBtn.isHidden = false
-    }
-    func hideCenterPlayBtn() {
-        playBtn.isHidden = true
+        protraitControlView.isHidden = true
+        landScapeControlView.isHidden = false
     }
 }
 

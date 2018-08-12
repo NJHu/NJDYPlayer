@@ -15,6 +15,25 @@ extension String {
     }
 }
 
+extension Int {
+    // 00:00
+    func njPL_formarToProgerssTime() -> String {
+        if self < 0 {
+            return "00:00"
+        }
+        var time = ""
+        let hour = self / 3600
+        let min = (self - 3600 * hour) / 60
+        let sec = (self - 3600 * hour) % 60
+        if hour > 0 {
+            time += String(format: "%02d:", hour)
+        }
+        time += String(format: "%02d:", min)
+        time += String(format: "%02d", sec)
+        return time
+    }
+}
+
 extension Bundle {
     static func njPL_curBundle(class bundleOfClass: AnyClass?, bundleFile: String? = nil) -> Bundle {
         

@@ -30,6 +30,12 @@ class NJLandScapeControlView: UIView {
         }
     }
     
+    var playing: Bool = true {
+        didSet {
+            
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUIOnce()
@@ -60,10 +66,10 @@ extension NJLandScapeControlView {
 // MARK:- control
 extension NJLandScapeControlView {
     func show() -> Void {
-        self.isHidden = false
+        
     }
     func hide() -> Void {
-        self.isHidden = true
+        
     }
 }
 

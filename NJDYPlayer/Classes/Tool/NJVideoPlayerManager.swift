@@ -82,8 +82,8 @@ public extension NJVideoPlayerManager {
     
     // 关闭播放
     func shutdown() {
-        layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait)
-        playerController.shutdown()
+        self.layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait, isInit: true)
+        self.playerController.shutdown()
         self.delegate = nil;
         self.containerView = nil;
         self.shouldAutorotate = true
@@ -286,6 +286,9 @@ extension NJVideoPlayerManager: NJPresentViewDelegate {
     }
     @objc func controlView(gobackLayout controlView: NJControlView) {
         layoutViews(containerView: self.containerView, deviceOrientation: UIDeviceOrientation.portrait)
+    }
+    @objc func controlView(fullScreen controlView: NJControlView) {
+        layoutViews(deviceOrientation: UIDeviceOrientation.landscapeLeft)
     }
 }
 
