@@ -38,9 +38,7 @@ class NJProtraitControlView: UIView {
         }()
     private lazy var fullScreenBtn: UIButton = {[weak self] in
         let fullScreenBtn = UIButton(type: UIButtonType.custom)
-        fullScreenBtn.setImage(UIImage.njPL_image(name: "ZFPlayer_fullscreen", bundleClass: NJProtraitControlView.self), for: .selected)
         fullScreenBtn.setImage(UIImage.njPL_image(name: "ZFPlayer_fullscreen", bundleClass: NJProtraitControlView.self), for: .normal)
-        fullScreenBtn.setImage(UIImage.njPL_image(name: "ZFPlayer_fullscreen", bundleClass: NJProtraitControlView.self), for: .highlighted)
         fullScreenBtn.addTarget(self, action: #selector(fullScreenCick(btn:)), for: .touchUpInside)
         self?.controlBottomView.addSubview(fullScreenBtn)
         return fullScreenBtn;
@@ -54,6 +52,8 @@ class NJProtraitControlView: UIView {
         self?.addSubview(btn)
         return btn;
         }()
+    
+    private lazy var isShowRecord: NSObject = NSObject()
     
     var playing: Bool = true {
         didSet {
@@ -92,17 +92,20 @@ class NJProtraitControlView: UIView {
         let minWidth: CGFloat = 44;
         let progressHeight: CGFloat = 34
         let controlTopViewHeight: CGFloat = 40
+        let selfHeight: CGFloat = self.frame.size.height
+        let selfWidth: CGFloat = self.frame.size.width
         
         playBtn.bounds = CGRect(x: 0, y: 0, width: minWidth, height: minWidth)
-        playBtn.center = CGPoint(x: self.bounds.width * 0.5, y: self.bounds.height * 0.5)
-
-        self.controlTopView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: controlTopViewHeight)
-        self.controlBottomView.frame = CGRect(x: 0, y: self.bounds.height - controlTopViewHeight, width: self.bounds.width, height: controlTopViewHeight)
+        playBtn.center = CGPoint(x: selfWidth * 0.5, y: selfHeight * 0.5)
         
-        fullScreenBtn.frame = CGRect(x: controlBottomView.frame.width - minWidth - margin, y: 0, width: minWidth, height: controlBottomView.frame.height)
-        progressTimeView.frame = CGRect(x: 0, y: (controlBottomView.frame.height - progressHeight) * 0.5, width: fullScreenBtn.frame.origin.x, height: progressHeight)
+        controlTopView.frame = CGRect(x: 0, y: 0, width: selfWidth, height: controlTopViewHeight)
+        controlBottomView.frame = CGRect(x: 0, y: selfHeight - controlTopViewHeight, width: selfWidth, height: controlTopViewHeight)
+        
+        fullScreenBtn.frame = CGRect(x: selfWidth - minWidth - margin, y: 0, width: minWidth, height: controlTopViewHeight)
+        progressTimeView.frame = CGRect(x: 0, y: (controlTopViewHeight - progressHeight) * 0.5, width: selfWidth - minWidth - margin, height: progressHeight)
         
         self.playBtn.alpha = 1
+        self.afterHide()
     }
 }
 
@@ -112,6 +115,9 @@ extension NJProtraitControlView {
         self.backgroundColor = UIColor.clear
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("tabControlView")))
         self.clipsToBounds = true
+    }
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
     }
 }
 
@@ -141,26 +147,40 @@ extension NJProtraitControlView {
     }
     
     func hide() -> Void {
-        let margin: CGFloat = 10
-        let minWidth: CGFloat = 44
-        let progressHeight: CGFloat = 34
         let controlTopViewHeight: CGFloat = 40
-        [UIView .animate(withDuration: 0.3, animations: {
-            self.controlTopView.frame = CGRect(x: 0, y: -controlTopViewHeight, width: self.bounds.width, height: controlTopViewHeight)
-            self.controlBottomView.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: controlTopViewHeight)
+        let selfHeight: CGFloat = self.frame.size.height
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.controlTopView.frame.origin = CGPoint(x: 0, y: -controlTopViewHeight)
+            self.controlBottomView.frame.origin = CGPoint(x: 0, y: selfHeight)
             self.playBtn.alpha = 0
-        })];
+        });
     }
     func show() -> Void {
-        let margin: CGFloat = 10
-        let minWidth: CGFloat = 44
-        let progressHeight: CGFloat = 34
+        let selfHeight: CGFloat = self.frame.size.height
         let controlTopViewHeight: CGFloat = 40
-        [UIView .animate(withDuration: 0.3, animations: {
-            self.controlTopView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: controlTopViewHeight)
-            self.controlBottomView.frame = CGRect(x: 0, y: self.bounds.height - controlTopViewHeight, width: self.bounds.width, height: controlTopViewHeight)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.controlTopView.frame.origin = CGPoint(x: 0, y: 0)
+            self.controlBottomView.frame.origin = CGPoint(x: 0, y: selfHeight - controlTopViewHeight)
             self.playBtn.alpha = 1
-        })];
+        }) { (isFinished) in
+        
+            self.afterHide()
+        };
+    }
+    func afterHide() -> Void {
+        
+        self.isShowRecord = NSObject()
+        let curObj = self.isShowRecord
+        
+        let tinyDelay = DispatchTime.now() + Double(Int64(5 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: tinyDelay) {
+            if curObj != self.isShowRecord {
+                return
+            }
+            self.hide()
+        }
     }
 }
 

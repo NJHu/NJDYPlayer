@@ -90,6 +90,7 @@ extension NJControlView {
         landScapeControlView.frame = self.bounds
         protraitControlView.frame = self.bounds
         loadingActivity.center = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
+        bringSubview(toFront: loadingActivity)
     }
 }
 
@@ -111,7 +112,12 @@ extension NJControlView: NJLandScapeControlViewDelegate, NJProtraitControlViewDe
     func landScapeControlView(gobackLayout landScapeControlView: NJLandScapeControlView) -> Void {
         delegate?.controlView?(gobackLayout: self)
     }
-
+    func landScapeControlView(play landScapeControlView: NJLandScapeControlView) -> Void {
+        delegate?.controlView?(playClick: self)
+    }
+    func landScapeControlView(pause landScapeControlView: NJLandScapeControlView) -> Void {
+        delegate?.controlView?(pauseClick: self)
+    }
 }
 
 // MARK:- action
