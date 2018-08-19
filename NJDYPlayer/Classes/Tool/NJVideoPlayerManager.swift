@@ -111,10 +111,23 @@ extension NJVideoPlayerManager {
         
         var cur_deviceOrientation = deviceOrientation
         
-        
         if !(cur_deviceOrientation == UIDeviceOrientation.landscapeLeft || cur_deviceOrientation == UIDeviceOrientation.landscapeRight || cur_deviceOrientation == UIDeviceOrientation.portrait) || !self.shouldAutorotate {
             cur_deviceOrientation = UIDeviceOrientation.portrait
         }
+        
+        
+        if  cur_deviceOrientation == UIDeviceOrientation.portrait && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait && presentView.superview != nil {
+            return true
+        }
+        
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight{
+            return true
+        }
+        
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeRight && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft {
+            return true
+        }
+        
         
         if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft || cur_deviceOrientation == UIDeviceOrientation.landscapeRight {
             
@@ -134,26 +147,10 @@ extension NJVideoPlayerManager {
             
         }
         presentView.insertSubview(playerController.playerView!, at: 0)
-        
-        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight{
-            return true
-        }
-        
-        if cur_deviceOrientation == UIDeviceOrientation.landscapeRight && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft {
-            return true
-        }
-        
-        let superW: CGFloat = self.presentView.superview!.frame.width
-        let superH: CGFloat = self.presentView.superview!.frame.height
-        
-        let presentViewW: CGFloat = self.presentView.frame.width
-        let presentViewH: CGFloat = self.presentView.frame.height
 
-        if cur_deviceOrientation == UIDeviceOrientation.portrait && Int(superW) == Int(presentViewW) && Int(superH) == Int(presentViewH) {
-            return true
-        }
-
-        let anchorX = presentView.superview!.frame.width * 0.5 / presentView.superview!.frame.height
+        let superW: CGFloat = CGFloat(Int(self.presentView.superview!.frame.width))
+        let superH: CGFloat = CGFloat(Int(self.presentView.superview!.frame.height))
+        let anchorX = superW * 0.5 / superH
         let anchorY: CGFloat = 0.5
         presentView.layer.anchorPoint = CGPoint(x: anchorX, y: anchorY)
         
