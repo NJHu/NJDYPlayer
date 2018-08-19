@@ -146,7 +146,10 @@ extension NJVideoPlayerManager {
         let superW: CGFloat = self.presentView.superview!.frame.width
         let superH: CGFloat = self.presentView.superview!.frame.height
         
-        if cur_deviceOrientation == UIDeviceOrientation.portrait && Int(superW) == Int(self.presentView.frame.width) && Int(superH) == Int(self.presentView.frame.height) {
+        let presentViewW: CGFloat = self.presentView.frame.width
+        let presentViewH: CGFloat = self.presentView.frame.height
+
+        if cur_deviceOrientation == UIDeviceOrientation.portrait && Int(superW) == Int(presentViewW) && Int(superH) == Int(presentViewH) {
             return true
         }
 
