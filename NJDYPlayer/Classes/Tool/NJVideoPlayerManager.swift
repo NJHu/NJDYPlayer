@@ -1,5 +1,5 @@
 //
-//  NJPlayerManager.swift
+//  NJVideoPlayerManagerError.swift
 //  NJDYPlayer
 //
 //  Created by HuXuPeng on 2018/7/22.
@@ -51,7 +51,7 @@ extension NJVideoPlayerManager {
         self.shouldAutorotate = shouldAutorotate
         
         if !layoutViews(isInit: true) {
-            return NJPlayerManagerError.nilPlayer
+            return NJVideoPlayerManagerError.nilPlayer
         }
         return nil
     }
