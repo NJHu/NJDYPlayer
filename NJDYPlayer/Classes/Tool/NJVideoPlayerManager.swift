@@ -109,6 +109,10 @@ extension NJVideoPlayerManager {
             return false
         }
         
+        if (deviceOrientation == UIDeviceOrientation.faceUp || deviceOrientation == UIDeviceOrientation.faceDown) && presentView.superview != nil {
+            return true
+        }
+        
         var cur_deviceOrientation = deviceOrientation
         
         if !(cur_deviceOrientation == UIDeviceOrientation.landscapeLeft || cur_deviceOrientation == UIDeviceOrientation.landscapeRight || cur_deviceOrientation == UIDeviceOrientation.portrait) || !self.shouldAutorotate {
@@ -120,11 +124,11 @@ extension NJVideoPlayerManager {
             return true
         }
         
-        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight{
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeLeft && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight && presentView.superview != nil{
             return true
         }
         
-        if cur_deviceOrientation == UIDeviceOrientation.landscapeRight && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft {
+        if cur_deviceOrientation == UIDeviceOrientation.landscapeRight && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft && presentView.superview != nil {
             return true
         }
         

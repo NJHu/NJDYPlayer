@@ -9,12 +9,31 @@ import UIKit
 
 class NJPlayProgressView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private lazy var dotView = UIView()
+    private lazy var lineView = UIView()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+}
 
+extension NJPlayProgressView
+{
+    private func setupUI() {
+        addSubview(lineView)
+        addSubview(dotView)
+    }
 }
