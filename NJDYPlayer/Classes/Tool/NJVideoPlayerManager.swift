@@ -32,7 +32,8 @@ public class NJVideoPlayerManager: NSObject {
     private var shouldAutorotate: Bool = true
     private override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+//        orientationDidChangeNotification
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 }
 

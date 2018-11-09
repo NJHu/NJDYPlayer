@@ -37,7 +37,7 @@ class NJLandScapeControlView: UIView {
         }()
     
     private lazy var playBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setImage(UIImage.njPL_image(name: "ZFPlayer_pause", bundleClass: NJProtraitControlView.self), for: .selected)
         btn.setImage(UIImage.njPL_image(name: "ZFPlayer_play", bundleClass: NJProtraitControlView.self), for: .normal)
         btn.addTarget(self, action: #selector(playOrPause(btn:)), for: .touchUpInside)

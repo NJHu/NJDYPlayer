@@ -17,7 +17,7 @@ class NJControlTopView: UIView {
     private lazy var bgImageView = UIImageView(image: UIImage.njPL_image(name: "ZFPlayer_top_shadow", bundleClass: NJControlTopView.self))
     
     private lazy var backBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setImage(UIImage.njPL_image(name: "ZFPlayer_back_full", bundleClass: NJProtraitControlView.self), for: .normal)
         btn.addTarget(self, action: #selector(goBack(btn:)), for: .touchUpInside)
         return btn;

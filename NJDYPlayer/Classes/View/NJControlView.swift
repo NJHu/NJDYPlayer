@@ -33,7 +33,7 @@ class NJControlView: UIView {
         }()
     
     private lazy var loadingActivity: UIActivityIndicatorView = {
-       let loadingActivity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        let loadingActivity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
         loadingActivity.hidesWhenStopped = true
         self.addSubview(loadingActivity)
         return loadingActivity
@@ -90,7 +90,7 @@ extension NJControlView {
         landScapeControlView.frame = self.bounds
         protraitControlView.frame = self.bounds
         loadingActivity.center = CGPoint(x: self.frame.width * 0.5, y: self.frame.height * 0.5)
-        bringSubview(toFront: loadingActivity)
+        bringSubviewToFront(loadingActivity)
     }
 }
 

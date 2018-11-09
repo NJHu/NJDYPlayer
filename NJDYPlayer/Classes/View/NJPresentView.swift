@@ -45,7 +45,7 @@ extension NJPresentView {
     override func layoutSubviews() {
         super.layoutSubviews()
         controlView.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
-        self.bringSubview(toFront: controlView)
+        self.bringSubviewToFront(controlView)
     }
     private func setupUIOnce() {
         self.backgroundColor = UIColor.black

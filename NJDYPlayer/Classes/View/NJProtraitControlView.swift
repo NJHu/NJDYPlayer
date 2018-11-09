@@ -37,7 +37,7 @@ class NJProtraitControlView: UIView {
         return progressTimeView
         }()
     private lazy var fullScreenBtn: UIButton = {[weak self] in
-        let fullScreenBtn = UIButton(type: UIButtonType.custom)
+        let fullScreenBtn = UIButton(type: UIButton.ButtonType.custom)
         fullScreenBtn.setImage(UIImage.njPL_image(name: "ZFPlayer_fullscreen", bundleClass: NJProtraitControlView.self), for: .normal)
         fullScreenBtn.addTarget(self, action: #selector(fullScreenCick(btn:)), for: .touchUpInside)
         self?.controlBottomView.addSubview(fullScreenBtn)
@@ -45,7 +45,7 @@ class NJProtraitControlView: UIView {
         }()
 
     private lazy var playBtn: UIButton = {[weak self] in
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPause_44x44_", bundleClass: NJProtraitControlView.self), for: .selected)
         btn.setBackgroundImage(UIImage.njPL_image(name: "new_allPlay_44x44_", bundleClass: NJProtraitControlView.self), for: .normal)
         btn.addTarget(self, action: #selector(playOrPause(btn:)), for: .touchUpInside)
