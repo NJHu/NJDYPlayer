@@ -48,6 +48,20 @@ open class NJPlayerController: NSObject {
     private var IJKFFPlayer: IJKFFMoviePlayerController?
     private var contentURLString: String?
     weak var delegate: NJPlayerControllerDelegate?
+    public var scalingMode: UIView.ContentMode = .scaleAspectFit {
+        didSet {
+            switch scalingMode {
+            case .scaleToFill:
+                IJKFFPlayer?.scalingMode = IJKMPMovieScalingMode.fill;
+            case .scaleAspectFit:
+                IJKFFPlayer?.scalingMode = IJKMPMovieScalingMode.aspectFit;
+            case .scaleAspectFill:
+                IJKFFPlayer?.scalingMode = IJKMPMovieScalingMode.aspectFill;
+            default:
+                IJKFFPlayer?.scalingMode = IJKMPMovieScalingMode.fill;
+            }
+        }
+    }
     
     convenience init(delegate: NJPlayerControllerDelegate?) {
         self.init()
